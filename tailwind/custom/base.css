@@ -1,0 +1,81 @@
+/**
+ * Custom styles to immediately follow Tailwind’s `base` layer
+ */
+
+/**
+ * This uses the background and foreground colors declared in the `theme.json`
+ * file and is applied both to the front end and in the block editor.
+ *
+ * The radial glows evoke the dark, divine atmosphere of SMITE 2.
+ */
+body {
+	@apply bg-background text-foreground font-sans antialiased;
+	background-image:
+		radial-gradient(
+			60rem 40rem at 80% -10%,
+			color-mix(in oklab, var(--color-cyan) 14%, transparent),
+			transparent
+		),
+		radial-gradient(
+			55rem 38rem at 0% 0%,
+			color-mix(in oklab, var(--color-gold) 10%, transparent),
+			transparent
+		);
+	background-attachment: fixed;
+	background-repeat: no-repeat;
+}
+
+/**
+ * Display font + tight tracking for all headings, matching the bold,
+ * condensed look of the SMITE branding.
+ */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.page-title,
+.entry-title {
+	@apply font-display tracking-wide text-foreground;
+}
+
+/* Links default to the electric-cyan accent. */
+a {
+	@apply text-cyan transition-colors duration-150;
+}
+
+a:hover {
+	@apply text-gold;
+}
+
+/* Text selection uses the divine gold. */
+::selection {
+	background: color-mix(in oklab, var(--color-gold) 40%, transparent);
+	color: #0a0d14;
+}
+
+/* Custom dark scrollbar to match the theme. */
+* {
+	scrollbar-color: var(--color-border) transparent;
+}
+
+/* Default content container for single posts, pages and archives. */
+#primary {
+	@apply mx-auto w-full max-w-wide px-4 py-12 sm:px-6;
+}
+
+/* Featured image rendered by `_smfr_post_thumbnail()` (a bare <figure>). */
+article > figure {
+	@apply mx-auto mb-8 max-w-wide;
+}
+
+article > figure img {
+	@apply w-full rounded-xl border border-border object-cover;
+}
+
+/* Comments and navigation typography on dark backgrounds. */
+.post-navigation a,
+.posts-navigation a {
+	@apply text-cyan;
+}

@@ -1,0 +1,411 @@
+/**
+ * Custom styles to immediately follow Tailwind’s `components` layer
+ *
+ * “Use the `components` layer for any more complicated classes you want to add
+ *  to your project that you'd still like to be able to override with utility
+ *  classes.”
+ *
+ *  — from https://tailwindcss.com/docs/adding-custom-styles#adding-component-classes
+ */
+
+/**
+ * Pagination (the_posts_pagination) — page numbers as bordered chips.
+ */
+.pagination {
+	@apply mx-auto mt-12 max-w-wide;
+}
+
+.pagination .nav-links {
+	@apply flex flex-wrap items-center justify-center gap-2;
+}
+
+.pagination .page-numbers {
+	@apply inline-flex h-10 min-w-10 items-center justify-center rounded-md border border-border bg-surface px-3 font-display text-sm font-semibold text-foreground transition-colors duration-150;
+}
+
+.pagination a.page-numbers:hover {
+	@apply border-cyan text-cyan;
+}
+
+.pagination .page-numbers.current {
+	@apply border-transparent bg-gold text-background;
+}
+
+.pagination .page-numbers.dots {
+	@apply border-transparent bg-transparent;
+}
+
+/**
+ * Single post previous/next navigation.
+ */
+.post-navigation {
+	@apply mx-auto mt-12 max-w-wide;
+}
+
+.post-navigation .nav-links {
+	@apply grid gap-4 sm:grid-cols-2;
+}
+
+.post-navigation .nav-links a {
+	@apply block rounded-xl border border-border bg-surface p-4 font-display text-sm uppercase tracking-wide text-foreground transition-all duration-200;
+}
+
+.post-navigation .nav-links a:hover {
+	@apply -translate-y-1 border-cyan/50 text-cyan;
+}
+
+.post-navigation .nav-next {
+	@apply sm:text-right;
+}
+
+/**
+ * Search form (HTML5 core markup).
+ */
+.search-form {
+	@apply mx-auto mt-6 flex max-w-md items-center gap-2;
+}
+
+.search-form .search-field {
+	@apply h-11 flex-1 rounded-md border border-border bg-surface px-4 text-foreground placeholder:text-muted focus:border-cyan focus:outline-none;
+}
+
+.search-form .search-submit {
+	@apply inline-flex h-11 items-center rounded-md bg-gold px-5 font-display text-sm font-semibold uppercase tracking-wider text-background transition-all duration-150 hover:-translate-y-0.5;
+}
+
+/**
+ * Comments area.
+ */
+#comments {
+	@apply border-t border-border pt-8;
+}
+
+.comment-list {
+	@apply space-y-6 list-none pl-0;
+}
+
+.comment-body {
+	@apply rounded-xl border border-border bg-surface p-5;
+}
+
+.comment-form input[type="text"],
+.comment-form input[type="email"],
+.comment-form input[type="url"],
+.comment-form textarea {
+	@apply w-full rounded-md border border-border bg-surface px-4 py-2 text-foreground placeholder:text-muted focus:border-cyan focus:outline-none;
+}
+
+.comment-form .submit {
+	@apply inline-flex cursor-pointer items-center justify-center rounded-md bg-gold px-5 py-2.5 font-display text-sm font-semibold uppercase tracking-wider text-background transition-all duration-150 hover:-translate-y-0.5;
+}
+
+/* Widgets in the footer. */
+.widget-title {
+	@apply mb-3 font-display text-sm font-semibold uppercase tracking-widest text-foreground;
+}
+
+/**
+ * Buttons — divine-gold primary CTA and ghosted secondary, inspired by the
+ * "Play Free Now" buttons on smite2.com.
+ */
+.btn,
+.btn-primary,
+.btn-ghost,
+.btn-discord {
+	@apply inline-flex items-center justify-center gap-2 rounded-md px-5 py-2.5 font-display text-sm font-semibold tracking-wider uppercase transition-all duration-150;
+}
+
+.btn-primary {
+	@apply text-background;
+	background-image: linear-gradient(
+		135deg,
+		var(--color-gold),
+		color-mix(in oklab, var(--color-gold) 70%, #fff)
+	);
+	box-shadow: 0 0 0 1px color-mix(in oklab, var(--color-gold) 50%, transparent);
+}
+
+.btn-primary:hover {
+	@apply text-background -translate-y-0.5;
+	box-shadow: 0 8px 24px -8px var(--color-gold);
+}
+
+.btn-ghost {
+	@apply border border-border bg-surface/60 text-foreground;
+}
+
+.btn-ghost:hover {
+	@apply border-cyan text-cyan;
+}
+
+/* Discord-flavoured CTA used in the header. */
+.btn-discord {
+	@apply text-white;
+	background-color: #5865f2;
+}
+
+.btn-discord:hover {
+	@apply text-white -translate-y-0.5;
+	box-shadow: 0 8px 24px -8px #5865f2;
+}
+
+/**
+ * Card — used for post listings. A subtle bordered surface that lifts and
+ * glows cyan on hover.
+ */
+.card {
+	@apply relative overflow-hidden rounded-xl border border-border bg-surface transition-all duration-200;
+}
+
+.card:hover {
+	@apply -translate-y-1 border-cyan/50;
+	box-shadow: 0 18px 40px -20px color-mix(in oklab, var(--color-cyan) 60%, #000);
+}
+
+/* Small uppercase eyebrow/label, e.g. category or section kicker. */
+.eyebrow {
+	@apply inline-flex items-center gap-2 font-display text-xs font-semibold tracking-[0.2em] uppercase text-cyan;
+}
+
+/* Pill badge (categories, tags). */
+.badge {
+	@apply inline-flex items-center rounded-full border border-border bg-surface-2 px-3 py-1 font-display text-xs font-medium tracking-wide uppercase text-muted;
+}
+
+/**
+ * Single post / page hero header with the featured image as a darkened
+ * background (echoing the front-page hero).
+ */
+.entry-hero {
+	background-size: cover;
+	background-position: center;
+}
+
+.entry-hero::before {
+	content: "";
+	@apply absolute inset-0 z-0;
+	background:
+		linear-gradient(
+			to bottom,
+			color-mix(in oklab, var(--color-background) 55%, transparent),
+			color-mix(in oklab, var(--color-background) 92%, transparent)
+		);
+}
+
+/**
+ * Default hero ambiance when a post/page has no featured image: dark surface
+ * with the signature cyan/gold glows (echoing the front-page hero).
+ */
+.entry-hero--default {
+	background-color: var(--color-surface);
+	background-image:
+		radial-gradient(
+			40rem 24rem at 85% -20%,
+			color-mix(in oklab, var(--color-cyan) 22%, transparent),
+			transparent
+		),
+		radial-gradient(
+			36rem 22rem at 0% 120%,
+			color-mix(in oklab, var(--color-gold) 16%, transparent),
+			transparent
+		);
+}
+
+.entry-hero--default::before {
+	background: none;
+}
+
+/**
+ * Site header / primary navigation.
+ *
+ * Transparent at the top of the page, then gains a frosted dark background
+ * and a border once the user scrolls (toggled in script.js).
+ */
+#masthead {
+	@apply sticky top-0 z-50 border-b border-transparent transition-colors duration-200;
+}
+
+/* Offset the sticky header below the WordPress admin bar when it is shown. */
+.admin-bar #masthead {
+	top: 32px;
+}
+
+@media screen and (max-width: 782px) {
+	.admin-bar #masthead {
+		top: 46px;
+	}
+}
+
+#masthead.is-scrolled {
+	@apply border-border bg-background/85 backdrop-blur-md;
+}
+
+/* Primary menu links. */
+#primary-menu {
+	@apply flex flex-col gap-1 lg:flex-row lg:items-center lg:gap-1;
+}
+
+/**
+ * Mobile menu as a right-side sheet (off-canvas drawer).
+ */
+@media (max-width: 1023.98px) {
+	#primary-menu {
+		@apply fixed inset-y-0 left-0 z-50 h-full w-80 max-w-[85vw] -translate-x-full overflow-y-auto border-r border-border bg-surface p-6 pt-20 shadow-2xl transition-transform duration-300 ease-out;
+	}
+
+	.nav-open #primary-menu {
+		@apply translate-x-0;
+	}
+}
+
+/* Dimmed backdrop behind the sheet. */
+.menu-backdrop {
+	@apply pointer-events-none fixed inset-0 z-40 bg-black/60 opacity-0 backdrop-blur-sm transition-opacity duration-300 lg:hidden;
+}
+
+.nav-open .menu-backdrop {
+	@apply pointer-events-auto opacity-100;
+}
+
+/* Close (×) button, shown only while the sheet is open on mobile. */
+.menu-close {
+	@apply fixed left-4 top-4 z-50 hidden rounded-md border border-border bg-surface-2 p-2 text-foreground transition-colors hover:border-gold hover:text-gold;
+}
+
+.nav-open .menu-close {
+	@apply block lg:hidden;
+}
+
+#primary-menu li {
+	@apply relative;
+}
+
+#primary-menu a {
+	@apply block rounded-md px-3 py-2 font-display text-sm font-semibold tracking-wide whitespace-nowrap uppercase text-foreground/80 transition-colors duration-150;
+}
+
+#primary-menu a:hover,
+#primary-menu .current-menu-item > a {
+	@apply bg-surface text-cyan;
+}
+
+/* Chevron indicator on items that have a submenu. */
+#primary-menu .menu-item-has-children > a::after {
+	content: "";
+	@apply ml-1 inline-block h-1.5 w-1.5 rotate-45 border-b border-r border-current align-middle opacity-70;
+}
+
+/**
+ * Submenus.
+ *
+ * On mobile they flow in the panel, indented. On desktop (lg+) they become
+ * absolutely-positioned dropdowns that open on hover / keyboard focus.
+ */
+#primary-menu .sub-menu {
+	@apply flex flex-col;
+}
+
+#primary-menu .sub-menu a {
+	@apply text-foreground/70 max-lg:pl-6;
+}
+
+@media (min-width: 64rem) {
+	#primary-menu .sub-menu {
+		@apply absolute left-0 top-full z-50 hidden min-w-56 gap-0.5 rounded-xl border border-border bg-surface p-2 shadow-2xl;
+	}
+
+	#primary-menu li:hover > .sub-menu,
+	#primary-menu li:focus-within > .sub-menu {
+		@apply block;
+	}
+
+	/* Nested submenus open to the side. */
+	#primary-menu .sub-menu .sub-menu {
+		@apply left-full top-0;
+	}
+}
+
+/* Footer menu links. */
+.footer-menu {
+	@apply flex flex-wrap gap-x-6 gap-y-2;
+}
+
+.footer-menu a {
+	@apply font-display text-sm font-medium tracking-wide uppercase text-muted;
+}
+
+.footer-menu a:hover {
+	@apply text-gold;
+}
+
+/**
+ * Section heading with a gold accent bar.
+ */
+.section-title {
+	@apply relative flex items-center gap-3 font-display text-2xl font-bold tracking-wide uppercase;
+}
+
+.section-title::before {
+	content: "";
+	@apply h-6 w-1 rounded bg-gold;
+}
+
+/**
+ * Post title styles
+ *
+ * These will be applied to all headings with a `page-title` or `entry-title`
+ * class on the frontend and to the post title in the block editor.
+ *
+ * The supplied styles are meant to match the default `h1` classes from
+ * Tailwind Typography.
+ */
+.page-title,
+.entry-title {
+	@apply max-w-content mx-auto mb-6 text-3xl font-extrabold;
+}
+
+/**
+ * Post meta and footer styles
+ *
+ * These will be applied to the post-specific elements to keep the post itself
+ * at content width pending custom styling.
+ */
+.entry-meta,
+.entry-footer,
+.post-navigation,
+#comments {
+	@apply max-w-content mx-auto mb-6;
+}
+
+/**
+ * Layout styles for centered content areas
+ *
+ * If you are controlling the width of your content area with styles applied
+ * to its container, you can delete the following styles whose selectors begin
+ * with `.page-content >` and `.entry-content >`. For more details, please see
+ * the following:
+ *
+ * https://make.wordpress.org/core/2021/06/29/on-layout-and-content-width-in-wordpress-5-8/
+ */
+.page-content > *,
+.entry-content > * {
+	/* Content width from the `theme.json` file */
+	@apply max-w-content mx-auto;
+}
+
+.entry-content > .alignwide {
+	/* Wide width from the `theme.json` file */
+	@apply max-w-wide;
+}
+
+.entry-content > .alignfull {
+	@apply max-w-none;
+}
+
+.entry-content > .alignleft {
+	@apply float-left mr-8;
+}
+
+.entry-content > .alignright {
+	@apply float-right ml-8;
+}

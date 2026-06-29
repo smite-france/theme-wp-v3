@@ -1,0 +1,56 @@
+services:
+  db:
+    # MySQL 8 to match the production dump and server.
+    image: mysql:8.0
+    restart: unless-stopped
+    environment:
+      # Match the credentials hard-coded in website/wp-config.php so it can stay
+      # byte-identical to production.
+      MYSQL_DATABASE: smitefrawcweb
+      MYSQL_USER: smitefrawcweb
+      MYSQL_PASSWORD: JRbSM58iqB38nidGERp85Gq8
+      MYSQL_ROOT_PASSWORD: rootpassword
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      default:
+        aliases:
+          # wp-config.php points DB_HOST at this hostname; make it resolve to
+          # this container so the production config works unchanged.
+          - smitefrawcweb.mysql.db
+
+  wordpress:
+    # PHP 7.4 to match production (PHP 8 makes legacy plugins fatal).
+    image: wordpress:php7.4-apache
+    restart: unless-stopped
+    depends_on:
+      - db
+    ports:
+      - "8080:80"
+    volumes:
+      # The real production site: same core, plugins, uploads, wp-config.
+      - /home/tilican/Workspace/website:/var/www/html:z
+      # Keep live theme development from this repo (folder name must stay
+      # "smfr" to match the active theme in the database).
+      - ./theme:/var/www/html/wp-content/themes/smfr:z
+      # Match production PHP (output_buffering on) so Orizon's stray output
+      # doesn't break cookies/redirects.
+      - ./docker/php-prod.ini:/usr/local/etc/php/conf.d/zz-prod.ini:ro,z
+
+  phpmyadmin:
+    image: phpmyadmin:latest
+    restart: unless-stopped
+    depends_on:
+      - db
+    ports:
+      - "8081:80"
+    environment:
+      PMA_HOST: db
+      PMA_USER: smitefrawcweb
+      PMA_PASSWORD: JRbSM58iqB38nidGERp85Gq8
+
+volumes:
+  db_data:
+
+networks:
+  default:

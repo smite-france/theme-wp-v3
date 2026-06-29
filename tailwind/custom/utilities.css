@@ -1,0 +1,21 @@
+/**
+ * Custom styles to immediately follow Tailwind’s `utilities` layer
+ *
+ * Add your own utility classes to this theme. Complex utility classes should
+ * be added using Tailwind’s plugin system:
+ *
+ * https://tailwindcss.com/docs/adding-custom-styles#adding-custom-utilities
+ */
+
+/**
+ * Imported posts include their own bullet characters ("•") inside list items,
+ * which collided with the bullets added by Tailwind Typography (`prose`),
+ * producing double bullets. We disable the prose-generated markers on
+ * unordered lists in post/page content so only the content's own bullet (if
+ * any) is shown. Ordered lists keep their numbers.
+ */
+.entry-content ul,
+.page-content ul {
+	list-style: none;
+	padding-inline-start: 0;
+}
