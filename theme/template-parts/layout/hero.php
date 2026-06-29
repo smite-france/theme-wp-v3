@@ -49,9 +49,12 @@ $_smfr_hero_image = get_theme_mod( 'smfr_hero_image', '' );
 		</p>
 
 		<div class="mt-10 flex flex-wrap items-center justify-center gap-4">
-			<a href="https://discord.gg/smitefrance" target="_blank" rel="noopener" class="btn-primary">
-				<?php esc_html_e( 'Rejoindre le Discord', '_smfr' ); ?>
-			</a>
+			<?php $_smfr_discord = _smfr_social_url( 'discord' ); ?>
+			<?php if ( $_smfr_discord ) : ?>
+				<a href="<?php echo esc_url( $_smfr_discord ); ?>" target="_blank" rel="noopener" class="btn-primary">
+					<?php esc_html_e( 'Rejoindre le Discord', '_smfr' ); ?>
+				</a>
+			<?php endif; ?>
 			<a href="#main" class="btn-ghost">
 				<?php esc_html_e( 'Voir les actualités', '_smfr' ); ?>
 			</a>

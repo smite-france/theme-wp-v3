@@ -251,6 +251,41 @@ function _smfr_primary_menu_fallback() {
 }
 
 /**
+ * Social networks handled by the theme.
+ *
+ * @return array<string, array{label: string, default: string}>
+ */
+function _smfr_social_networks() {
+	return array(
+		'discord' => array(
+			'label'   => __( 'Discord', '_smfr' ),
+			'default' => 'https://discord.gg/smitefrance',
+		),
+		'youtube' => array(
+			'label'   => __( 'YouTube', '_smfr' ),
+			'default' => 'https://www.youtube.com/@SmiteFrance',
+		),
+		'x'       => array(
+			'label'   => __( 'X (Twitter)', '_smfr' ),
+			'default' => 'https://x.com/SmiteFrance',
+		),
+	);
+}
+
+/**
+ * Get a configured social link URL.
+ *
+ * @param string $network Network key (discord, youtube, x).
+ * @return string
+ */
+function _smfr_social_url( $network ) {
+	$networks = _smfr_social_networks();
+	$default  = isset( $networks[ $network ] ) ? $networks[ $network ]['default'] : '';
+
+	return get_theme_mod( 'smfr_social_' . $network, $default );
+}
+
+/**
  * Default text for the information banner.
  *
  * @return string
@@ -380,6 +415,37 @@ function _smfr_customize_register( $wp_customize ) {
 			'type'        => 'textarea',
 		)
 	);
+
+	// Social links.
+	$wp_customize->add_section(
+		'_smfr_social',
+		array(
+			'title'    => __( 'Réseaux sociaux', '_smfr' ),
+			'priority' => 32,
+		)
+	);
+
+	foreach ( _smfr_social_networks() as $_smfr_key => $_smfr_network ) {
+		$wp_customize->add_setting(
+			'smfr_social_' . $_smfr_key,
+			array(
+				'default'           => $_smfr_network['default'],
+				'sanitize_callback' => 'esc_url_raw',
+				'transport'         => 'refresh',
+			)
+		);
+
+		$wp_customize->add_control(
+			'smfr_social_' . $_smfr_key,
+			array(
+				/* translators: %s: social network name. */
+				'label'       => sprintf( __( 'Lien %s', '_smfr' ), $_smfr_network['label'] ),
+				'description' => __( 'Laisser vide pour masquer.', '_smfr' ),
+				'section'     => '_smfr_social',
+				'type'        => 'url',
+			)
+		);
+	}
 }
 add_action( 'customize_register', '_smfr_customize_register' );
 

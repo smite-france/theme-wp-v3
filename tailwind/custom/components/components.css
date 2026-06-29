@@ -236,8 +236,25 @@
 	}
 }
 
+/*
+ * Below 600px WordPress switches the admin bar to `position: absolute` (it
+ * scrolls away instead of staying fixed), so the sticky header must sit flush
+ * against the top again.
+ */
+@media screen and (max-width: 600px) {
+	.admin-bar #masthead {
+		top: 0;
+	}
+}
+
+/*
+ * Note: we intentionally avoid `backdrop-blur` (backdrop-filter) here. A
+ * filtered element becomes the containing block for its `position: fixed`
+ * descendants, which would break the off-canvas mobile menu after scrolling.
+ * A near-opaque solid background gives a similar look without that side effect.
+ */
 #masthead.is-scrolled {
-	@apply border-border bg-background/85 backdrop-blur-md;
+	@apply border-border bg-background/95;
 }
 
 /* Primary menu links. */
@@ -250,7 +267,7 @@
  */
 @media (max-width: 1023.98px) {
 	#primary-menu {
-		@apply fixed inset-y-0 left-0 z-50 h-full w-80 max-w-[85vw] -translate-x-full overflow-y-auto border-r border-border bg-surface p-6 pt-20 shadow-2xl transition-transform duration-300 ease-out;
+		@apply fixed inset-y-0 left-0 z-50 w-80 max-w-[85vw] -translate-x-full overflow-y-auto border-r border-border bg-surface p-6 pt-20 shadow-2xl transition-transform duration-300 ease-out;
 	}
 
 	.nav-open #primary-menu {
