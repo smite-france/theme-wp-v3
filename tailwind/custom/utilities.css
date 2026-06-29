@@ -19,3 +19,12 @@
 	list-style: none;
 	padding-inline-start: 0;
 }
+
+/**
+ * Tables built in WordPress can be wider than the content column and overflow.
+ * Keep them within the available width.
+ */
+.entry-content table,
+.page-content table {
+	max-width: 100%;
+}

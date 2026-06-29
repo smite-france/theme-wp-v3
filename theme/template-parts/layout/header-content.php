@@ -16,6 +16,18 @@
 		<div class="flex items-center gap-3">
 			<?php if ( has_custom_logo() ) : ?>
 				<?php the_custom_logo(); ?>
+			<?php else : ?>
+				<a
+					href="<?php echo esc_url( home_url( '/' ) ); ?>"
+					rel="home"
+					class="custom-logo-link"
+				>
+					<img
+						class="custom-logo"
+						src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/logo.png' ); ?>"
+						alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>"
+					/>
+				</a>
 			<?php endif; ?>
 
 			<?php

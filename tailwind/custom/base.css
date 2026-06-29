@@ -74,6 +74,16 @@ article > figure img {
 	@apply w-full rounded-xl border border-border object-cover;
 }
 
+/* Custom logo sizing — configured via Appearance > Customiser > Identité du site. */
+.custom-logo-link {
+	@apply flex shrink-0 items-center;
+}
+
+.custom-logo {
+	@apply w-auto max-w-[160px] object-contain;
+	height: 40px !important;
+}
+
 /* Comments and navigation typography on dark backgrounds. */
 .post-navigation a,
 .posts-navigation a {

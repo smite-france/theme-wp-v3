@@ -11,6 +11,20 @@
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 
+	<?php if ( has_post_thumbnail() ) : ?>
+		<figure class="mx-auto mb-12 w-fit">
+			<?php
+			the_post_thumbnail(
+				'full',
+				array(
+					'class'   => 'mx-auto h-[360px] w-auto max-w-full rounded-2xl object-contain',
+					'loading' => 'eager',
+				)
+			);
+			?>
+		</figure>
+	<?php endif; ?>
+
 	<header class="entry-header mx-auto mb-8 max-w-content text-center">
 
 		<?php the_title( '<h1 class="entry-title !mx-auto !max-w-none !mb-0 text-4xl sm:text-5xl">', '</h1>' ); ?>
@@ -22,7 +36,7 @@
 					/* translators: 1: author, 2: category list, 3: date. */
 					esc_html__( 'par %1$s dans %2$s - %3$s', '_smfr' ),
 					sprintf(
-						'<a class="text-foreground hover:text-gold" href="%s">%s</a>',
+						'<a class="text-gold hover:text-amber-200" href="%s">%s</a>',
 						esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ),
 						esc_html( get_the_author() )
 					),
@@ -34,19 +48,6 @@
 		<?php endif; ?>
 
 	</header><!-- .entry-header -->
-
-	<?php if ( has_post_thumbnail() ) : ?>
-		<figure class="mx-auto mb-12 max-w-wide">
-			<?php
-			the_post_thumbnail(
-				'full',
-				array(
-					'class' => 'mx-auto h-auto w-full rounded-2xl border border-border object-contain',
-				)
-			);
-			?>
-		</figure>
-	<?php endif; ?>
 
 	<div <?php _smfr_content_class( 'entry-content' ); ?>>
 		<?php
@@ -83,7 +84,7 @@
 			<?php
 			foreach ( $_smfr_tags as $_smfr_tag ) {
 				printf(
-					'<a href="%s" class="badge hover:border-cyan hover:text-cyan">%s</a>',
+					'<a href="%s" class="badge border-gold/40 text-gold hover:border-gold hover:text-amber-200">%s</a>',
 					esc_url( get_tag_link( $_smfr_tag->term_id ) ),
 					esc_html( $_smfr_tag->name )
 				);

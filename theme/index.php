@@ -17,6 +17,7 @@ get_header();
 
 <?php if ( is_front_page() ) : ?>
 	<?php get_template_part( 'template-parts/layout/hero' ); ?>
+	<?php get_template_part( 'template-parts/layout/notice' ); ?>
 <?php endif; ?>
 
 	<section id="primary" class="mx-auto max-w-wide px-4 py-12 sm:px-6">

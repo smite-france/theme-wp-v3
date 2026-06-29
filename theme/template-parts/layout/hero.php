@@ -38,9 +38,9 @@ $_smfr_hero_image = get_theme_mod( 'smfr_hero_image', '' );
 		</p>
 
 		<h1 class="mx-auto mt-6 max-w-3xl font-display text-5xl font-bold uppercase leading-[0.95] tracking-tight sm:text-6xl lg:text-7xl">
-			<?php esc_html_e( 'Deviens un dieu,', '_smfr' ); ?>
+			<?php esc_html_e( 'Rejoins la communauté', '_smfr' ); ?>
 			<span class="block bg-gradient-to-r from-gold via-amber-200 to-gold bg-clip-text text-transparent">
-				<?php esc_html_e( 'rejoins la bataille', '_smfr' ); ?>
+				<?php esc_html_e( 'SMITE France', '_smfr' ); ?>
 			</span>
 		</h1>
 

@@ -15,7 +15,7 @@ if ( ! defined( '_SMFR_VERSION' ) ) {
 	 * to create your production build, the value below will be replaced in the
 	 * generated zip file with a timestamp, converted to base 36.
 	 */
-	define( '_SMFR_VERSION', '0.1.0' );
+	define( '_SMFR_VERSION', '0.1.1' );
 }
 
 if ( ! defined( '_SMFR_TYPOGRAPHY_CLASSES' ) ) {
@@ -113,6 +113,17 @@ if ( ! function_exists( '_smfr_setup' ) ) :
 
 		// Add support for responsive embedded content.
 		add_theme_support( 'responsive-embeds' );
+
+		// Add support for custom logo (configurable via Appearance > Customize > Identité du site).
+		add_theme_support(
+			'custom-logo',
+			array(
+				'height'      => 60,
+				'width'       => 200,
+				'flex-height' => true,
+				'flex-width'  => true,
+			)
+		);
 
 		// Remove support for block templates.
 		remove_theme_support( 'block-templates' );
@@ -240,6 +251,18 @@ function _smfr_primary_menu_fallback() {
 }
 
 /**
+ * Default text for the information banner.
+ *
+ * @return string
+ */
+function _smfr_notice_default_text() {
+	return __(
+		"Nous informons nos lecteurs que n'ayant pas assez de bénévoles, notre site n'est pas à jour sur l'arrivée de SMITE 2 !\n\nCertaines informations concernant SMITE ne sont également pas à jour.\n\nNous continuons malgré tout à vous proposer un Discord actif et la rédaction des Notes des Patchs de SMITE 2 lors de leurs sorties via l'onglet \"Notes de Patch\".\n\nVous pouvez rejoindre l'équipe de bénévoles via l'onglet \"Staff Smite France\" ou \"Contact\".\n\nMerci à vous et bonne visite !\nL'équipe SMITE FRANCE",
+		'_smfr'
+	);
+}
+
+/**
  * Register theme options in the WordPress Customizer.
  */
 function _smfr_customize_register( $wp_customize ) {
@@ -269,6 +292,92 @@ function _smfr_customize_register( $wp_customize ) {
 				'description' => __( 'Affichée floutée derrière le titre. Si vide, les couleurs par défaut sont conservées.', '_smfr' ),
 				'section'     => '_smfr_homepage',
 			)
+		)
+	);
+
+	// Fallback image for posts without a featured image.
+	$wp_customize->add_setting(
+		'smfr_default_thumbnail',
+		array(
+			'default'           => '',
+			'sanitize_callback' => 'esc_url_raw',
+			'transport'         => 'refresh',
+		)
+	);
+
+	$wp_customize->add_control(
+		new WP_Customize_Image_Control(
+			$wp_customize,
+			'smfr_default_thumbnail',
+			array(
+				'label'       => __( 'Image par défaut des articles', '_smfr' ),
+				'description' => __( 'Utilisée sur la page d’accueil quand un article n’a pas d’image mise en avant. Si vide, le titre « SMITE FRANCE » est affiché.', '_smfr' ),
+				'section'     => '_smfr_homepage',
+			)
+		)
+	);
+
+	// Information banner.
+	$wp_customize->add_section(
+		'_smfr_notice',
+		array(
+			'title'    => __( 'Bandeau d’information', '_smfr' ),
+			'priority' => 31,
+		)
+	);
+
+	$wp_customize->add_setting(
+		'smfr_notice_enable',
+		array(
+			'default'           => false,
+			'sanitize_callback' => 'wp_validate_boolean',
+			'transport'         => 'refresh',
+		)
+	);
+
+	$wp_customize->add_control(
+		'smfr_notice_enable',
+		array(
+			'label'   => __( 'Afficher le bandeau', '_smfr' ),
+			'section' => '_smfr_notice',
+			'type'    => 'checkbox',
+		)
+	);
+
+	$wp_customize->add_setting(
+		'smfr_notice_title',
+		array(
+			'default'           => __( 'INFORMATION IMPORTANTE', '_smfr' ),
+			'sanitize_callback' => 'sanitize_text_field',
+			'transport'         => 'refresh',
+		)
+	);
+
+	$wp_customize->add_control(
+		'smfr_notice_title',
+		array(
+			'label'   => __( 'Titre du bandeau', '_smfr' ),
+			'section' => '_smfr_notice',
+			'type'    => 'text',
+		)
+	);
+
+	$wp_customize->add_setting(
+		'smfr_notice_text',
+		array(
+			'default'           => _smfr_notice_default_text(),
+			'sanitize_callback' => 'wp_kses_post',
+			'transport'         => 'refresh',
+		)
+	);
+
+	$wp_customize->add_control(
+		'smfr_notice_text',
+		array(
+			'label'       => __( 'Texte du bandeau', '_smfr' ),
+			'description' => __( 'Les sauts de ligne sont conservés.', '_smfr' ),
+			'section'     => '_smfr_notice',
+			'type'        => 'textarea',
 		)
 	);
 }

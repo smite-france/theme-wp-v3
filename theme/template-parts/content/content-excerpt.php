@@ -23,9 +23,20 @@
 			);
 			?>
 		<?php else : ?>
-			<span class="flex h-full w-full items-center justify-center font-display text-2xl font-bold uppercase tracking-widest text-border">
-				SMITE FRANCE
-			</span>
+			<?php $_smfr_default_thumb = get_theme_mod( 'smfr_default_thumbnail', '' ); ?>
+			<?php if ( $_smfr_default_thumb ) : ?>
+				<img
+					src="<?php echo esc_url( $_smfr_default_thumb ); ?>"
+					alt=""
+					aria-hidden="true"
+					loading="lazy"
+					class="h-full w-full object-cover transition-transform duration-300 hover:scale-105"
+				/>
+			<?php else : ?>
+				<span class="flex h-full w-full items-center justify-center font-display text-2xl font-bold uppercase tracking-widest text-border">
+					SMITE FRANCE
+				</span>
+			<?php endif; ?>
 		<?php endif; ?>
 	</a>
 
@@ -37,7 +48,7 @@
 			?>
 			<div class="mb-3 flex flex-wrap gap-2">
 				<?php foreach ( array_slice( $_smfr_cats, 0, 2 ) as $_smfr_cat ) : ?>
-					<a href="<?php echo esc_url( get_category_link( $_smfr_cat ) ); ?>" class="badge hover:border-cyan hover:text-cyan">
+					<a href="<?php echo esc_url( get_category_link( $_smfr_cat ) ); ?>" class="badge border-cyan/40 text-cyan hover:border-cyan hover:text-cyan">
 						<?php echo esc_html( $_smfr_cat->name ); ?>
 					</a>
 				<?php endforeach; ?>
@@ -57,7 +68,7 @@
 		<div class="mt-auto flex items-center gap-2 border-t border-border pt-3 font-display text-xs uppercase tracking-wide text-muted">
 			<time datetime="<?php echo esc_attr( get_the_date( 'c' ) ); ?>"><?php echo esc_html( get_the_date() ); ?></time>
 			<span aria-hidden="true">•</span>
-			<span><?php the_author(); ?></span>
+			<span class="text-gold"><?php the_author(); ?></span>
 		</div>
 
 	</div>
