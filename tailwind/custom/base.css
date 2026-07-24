@@ -37,7 +37,7 @@ h5,
 h6,
 .page-title,
 .entry-title {
-	@apply font-display tracking-wide text-foreground;
+	@apply font-display text-foreground tracking-wide;
 }
 
 /* Links default to the electric-cyan accent. */
@@ -62,26 +62,28 @@ a:hover {
 
 /* Default content container for single posts, pages and archives. */
 #primary {
-	@apply mx-auto w-full max-w-wide px-4 py-12 sm:px-6;
+	@apply max-w-wide mx-auto w-full px-4 py-12 sm:px-6;
 }
 
 /* Featured image rendered by `_smfr_post_thumbnail()` (a bare <figure>). */
 article > figure {
-	@apply mx-auto mb-8 max-w-wide;
+	@apply max-w-wide mx-auto mb-8;
 }
 
 article > figure img {
-	@apply w-full rounded-xl border border-border object-cover;
+	@apply border-border w-full rounded-xl border object-cover;
 }
 
-/* Custom logo sizing — configured via Appearance > Customiser > Identité du site. */
+/* Custom logo sizing — configured via Appearance > Customiser > Identité du site.
+ * Plain CSS height wins over the width/height attributes output by
+ * `the_custom_logo()`, so no `!important` is needed. */
 .custom-logo-link {
 	@apply flex shrink-0 items-center;
 }
 
 .custom-logo {
 	@apply w-auto max-w-[160px] object-contain;
-	height: 40px !important;
+	height: 40px;
 }
 
 /* Comments and navigation typography on dark backgrounds. */

@@ -20,7 +20,7 @@ get_header();
 	<?php get_template_part( 'template-parts/layout/notice' ); ?>
 <?php endif; ?>
 
-	<section id="primary" class="mx-auto max-w-wide px-4 py-12 sm:px-6">
+	<section id="primary">
 		<main id="main">
 
 		<?php

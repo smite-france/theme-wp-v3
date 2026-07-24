@@ -1,0 +1,4 @@
+/* Widgets in the footer. */
+.widget-title {
+	@apply font-display text-foreground mb-3 text-sm font-semibold tracking-widest uppercase;
+}

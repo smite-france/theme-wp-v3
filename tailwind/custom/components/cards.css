@@ -1,0 +1,23 @@
+/**
+ * Card — used for post listings. A subtle bordered surface that lifts and
+ * glows cyan on hover.
+ */
+.card {
+	@apply border-border bg-surface relative overflow-hidden rounded-xl border transition-all duration-200;
+}
+
+.card:hover {
+	@apply border-cyan/50 -translate-y-1;
+	box-shadow: 0 18px 40px -20px
+		color-mix(in oklab, var(--color-cyan) 60%, #000);
+}
+
+/* Small uppercase eyebrow/label, e.g. category or section kicker. */
+.eyebrow {
+	@apply font-display text-cyan inline-flex items-center gap-2 text-xs font-semibold tracking-[0.2em] uppercase;
+}
+
+/* Pill badge (categories, tags). */
+.badge {
+	@apply border-border bg-surface-2 font-display text-muted inline-flex items-center rounded-full border px-3 py-1 text-xs font-medium tracking-wide uppercase;
+}

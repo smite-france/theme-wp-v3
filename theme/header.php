@@ -24,7 +24,7 @@
 <?php wp_body_open(); ?>
 
 <div id="page">
-	<a href="#content" class="sr-only"><?php esc_html_e( 'Aller au contenu', '_smfr' ); ?></a>
+	<a href="#content" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-[100] focus:rounded-md focus:bg-gold focus:px-4 focus:py-2 focus:font-display focus:font-semibold focus:text-background"><?php esc_html_e( 'Aller au contenu', '_smfr' ); ?></a>
 
 	<?php get_template_part( 'template-parts/layout/header', 'content' ); ?>
 

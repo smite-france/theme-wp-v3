@@ -31,7 +31,7 @@ if ( post_password_required() ) {
 				// phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped
 				printf(
 					/* translators: 1: title. */
-					esc_html__( 'One comment on &ldquo;%1$s&rdquo;', '_smfr' ),
+					esc_html__( 'Un commentaire sur « %1$s »', '_smfr' ),
 					get_the_title()
 				);
 				// phpcs:enable WordPress.Security.EscapeOutput.OutputNotEscaped
@@ -39,7 +39,7 @@ if ( post_password_required() ) {
 				// phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped
 				printf(
 					/* translators: 1: comment count number, 2: title. */
-					esc_html( _nx( '%1$s comment on &ldquo;%2$s&rdquo;', '%1$s comments on &ldquo;%2$s&rdquo;', $_smfr_comment_count, 'comments title', '_smfr' ) ),
+					esc_html( _nx( '%1$s commentaire sur « %2$s »', '%1$s commentaires sur « %2$s »', $_smfr_comment_count, 'comments title', '_smfr' ) ),
 					number_format_i18n( $_smfr_comment_count ),
 					get_the_title()
 				);
@@ -50,7 +50,7 @@ if ( post_password_required() ) {
 
 		<?php the_comments_navigation(); ?>
 
-		<ol>
+		<ol class="comment-list">
 			<?php
 			wp_list_comments(
 				array(
@@ -69,7 +69,7 @@ if ( post_password_required() ) {
 		// message.
 		if ( ! comments_open() ) :
 			?>
-			<p><?php esc_html_e( 'Comments are closed.', '_smfr' ); ?></p>
+			<p><?php esc_html_e( 'Les commentaires sont fermés.', '_smfr' ); ?></p>
 			<?php
 		endif;
 

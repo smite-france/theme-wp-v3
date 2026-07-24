@@ -1,0 +1,149 @@
+/**
+ * Site header / primary navigation.
+ *
+ * Transparent at the top of the page, then gains a frosted dark background
+ * and a border once the user scrolls (toggled in script.js).
+ */
+#masthead {
+	@apply sticky top-0 z-50 border-b border-transparent transition-colors duration-200;
+}
+
+/* Offset the sticky header below the WordPress admin bar when it is shown. */
+.admin-bar #masthead {
+	top: 32px;
+}
+
+@media screen and (max-width: 782px) {
+	.admin-bar #masthead {
+		top: 46px;
+	}
+}
+
+/*
+ * Below 600px WordPress switches the admin bar to `position: absolute` (it
+ * scrolls away instead of staying fixed), so the sticky header must sit flush
+ * against the top again.
+ */
+@media screen and (max-width: 600px) {
+	.admin-bar #masthead {
+		top: 0;
+	}
+}
+
+/*
+ * Note: we intentionally avoid `backdrop-blur` (backdrop-filter) here. A
+ * filtered element becomes the containing block for its `position: fixed`
+ * descendants, which would break the off-canvas mobile menu after scrolling.
+ * A near-opaque solid background gives a similar look without that side effect.
+ */
+#masthead.is-scrolled {
+	@apply border-border bg-background/95;
+}
+
+/* Primary menu links. */
+#primary-menu {
+	@apply flex flex-col gap-1 lg:flex-row lg:items-center lg:gap-1;
+}
+
+/**
+ * Mobile menu as a right-side sheet (off-canvas drawer).
+ *
+ * While closed the sheet is both translated off-screen and hidden, so its
+ * links never enter the tab order (reinforced by the `inert` attribute
+ * toggled in script.js).
+ */
+@media (max-width: 1023.98px) {
+	#primary-menu {
+		@apply border-border bg-surface fixed inset-y-0 left-0 z-50 w-80 max-w-[85vw] -translate-x-full overflow-y-auto border-r p-6 pt-20 shadow-2xl;
+		visibility: hidden;
+		transition:
+			transform 300ms ease-out,
+			visibility 0s linear 300ms;
+	}
+
+	.nav-open #primary-menu {
+		@apply translate-x-0;
+		visibility: visible;
+		transition-delay: 0s;
+	}
+}
+
+/* Dimmed backdrop behind the sheet. */
+.menu-backdrop {
+	@apply pointer-events-none fixed inset-0 z-40 bg-black/60 opacity-0 backdrop-blur-sm transition-opacity duration-300 lg:hidden;
+}
+
+.nav-open .menu-backdrop {
+	@apply pointer-events-auto opacity-100;
+}
+
+/* Close (×) button, shown only while the sheet is open on mobile. */
+.menu-close {
+	@apply border-border bg-surface-2 text-foreground hover:border-gold hover:text-gold fixed top-4 left-4 z-50 hidden rounded-md border p-2 transition-colors;
+}
+
+.nav-open .menu-close {
+	@apply block lg:hidden;
+}
+
+#primary-menu li {
+	@apply relative;
+}
+
+#primary-menu a {
+	@apply font-display text-foreground/80 block rounded-md px-3 py-2 text-sm font-semibold tracking-wide whitespace-nowrap uppercase transition-colors duration-150;
+}
+
+#primary-menu a:hover,
+#primary-menu .current-menu-item > a {
+	@apply bg-surface text-cyan;
+}
+
+/* Chevron indicator on items that have a submenu. */
+#primary-menu .menu-item-has-children > a::after {
+	content: "";
+	@apply ml-1 inline-block h-1.5 w-1.5 rotate-45 border-r border-b border-current align-middle opacity-70;
+}
+
+/**
+ * Submenus.
+ *
+ * On mobile they flow in the panel, indented. On desktop (lg+) they become
+ * absolutely-positioned dropdowns that open on hover / keyboard focus.
+ */
+#primary-menu .sub-menu {
+	@apply flex flex-col;
+}
+
+#primary-menu .sub-menu a {
+	@apply text-foreground/70 max-lg:pl-6;
+}
+
+@media (min-width: 64rem) {
+	#primary-menu .sub-menu {
+		@apply border-border bg-surface absolute top-full left-0 z-50 hidden min-w-56 gap-0.5 rounded-xl border p-2 shadow-2xl;
+	}
+
+	#primary-menu li:hover > .sub-menu,
+	#primary-menu li:focus-within > .sub-menu {
+		@apply block;
+	}
+
+	/* Nested submenus open to the side. */
+	#primary-menu .sub-menu .sub-menu {
+		@apply top-0 left-full;
+	}
+}
+
+/* Footer menu links. */
+.footer-menu {
+	@apply flex flex-wrap gap-x-6 gap-y-2;
+}
+
+.footer-menu a {
+	@apply font-display text-muted text-sm font-medium tracking-wide uppercase;
+}
+
+.footer-menu a:hover {
+	@apply text-gold;
+}

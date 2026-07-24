@@ -80,7 +80,7 @@
 	if ( $_smfr_tags ) :
 		?>
 		<footer class="entry-footer mx-auto mt-10 flex max-w-content flex-wrap items-center gap-2 border-t border-border pt-6">
-			<span class="font-display text-xs uppercase tracking-widest text-muted"><?php esc_html_e( 'Tags', '_smfr' ); ?></span>
+			<span class="font-display text-xs tracking-widest text-muted uppercase"><?php esc_html_e( 'Tags', '_smfr' ); ?></span>
 			<?php
 			foreach ( $_smfr_tags as $_smfr_tag ) {
 				printf(

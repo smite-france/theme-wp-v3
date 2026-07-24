@@ -38,14 +38,14 @@
 			?>
 
 			<p>
-				<?php esc_html_e( 'Your site is set to show the most recent posts on your homepage, but you haven&rsquo;t published any posts.', '_smfr' ); ?>
+				<?php esc_html_e( 'Votre site est configuré pour afficher les articles les plus récents sur votre page d’accueil, mais vous n’avez encore publié aucun article.', '_smfr' ); ?>
 			</p>
 
 			<p>
 				<a href="<?php echo esc_url( admin_url( 'edit.php' ) ); ?>">
 					<?php
 					/* translators: 1: link to WP admin new post page. */
-					esc_html_e( 'Add or publish posts', '_smfr' );
+					esc_html_e( 'Ajouter ou publier des articles', '_smfr' );
 					?>
 				</a>
 			</p>
@@ -55,7 +55,7 @@
 			?>
 
 			<p>
-				<?php esc_html_e( 'Your search generated no results. Please try a different search.', '_smfr' ); ?>
+				<?php esc_html_e( 'Votre recherche n’a donné aucun résultat. Essayez avec d’autres termes.', '_smfr' ); ?>
 			</p>
 
 			<?php
@@ -64,7 +64,7 @@
 			?>
 
 			<p>
-				<?php esc_html_e( 'No content matched your request.', '_smfr' ); ?>
+				<?php esc_html_e( 'Aucun contenu ne correspond à votre demande.', '_smfr' ); ?>
 			</p>
 
 			<?php

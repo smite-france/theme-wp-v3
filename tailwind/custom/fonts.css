@@ -2,4 +2,42 @@
  * Custom `@font-face` rules
  *
  * These will be added immediately before Tailwind’s `base` layer.
+ *
+ * Fonts are self-hosted in `../theme/assets/fonts` (no external request, no
+ * GDPR concern). Inter is a variable font covering the 400–700 weights used
+ * by the theme; Rajdhani ships one file per weight.
+ *
+ * Paths are relative to the generated `style.css` / `style-editor.css` files
+ * in the `theme` folder.
  */
+@font-face {
+	font-family: "Inter";
+	font-style: normal;
+	font-weight: 100 900;
+	font-display: swap;
+	src: url("assets/fonts/inter-latin.woff2") format("woff2");
+}
+
+@font-face {
+	font-family: "Rajdhani";
+	font-style: normal;
+	font-weight: 500;
+	font-display: swap;
+	src: url("assets/fonts/rajdhani-latin-500.woff2") format("woff2");
+}
+
+@font-face {
+	font-family: "Rajdhani";
+	font-style: normal;
+	font-weight: 600;
+	font-display: swap;
+	src: url("assets/fonts/rajdhani-latin-600.woff2") format("woff2");
+}
+
+@font-face {
+	font-family: "Rajdhani";
+	font-style: normal;
+	font-weight: 700;
+	font-display: swap;
+	src: url("assets/fonts/rajdhani-latin-700.woff2") format("woff2");
+}

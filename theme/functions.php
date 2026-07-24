@@ -80,8 +80,8 @@ if ( ! function_exists( '_smfr_setup' ) ) :
 		// This theme uses wp_nav_menu() in two locations.
 		register_nav_menus(
 			array(
-				'menu-1' => __( 'Primary', '_smfr' ),
-				'menu-2' => __( 'Footer Menu', '_smfr' ),
+				'menu-1' => __( 'Menu principal', '_smfr' ),
+				'menu-2' => __( 'Menu de pied de page', '_smfr' ),
 			)
 		);
 
@@ -139,9 +139,9 @@ add_action( 'after_setup_theme', '_smfr_setup' );
 function _smfr_widgets_init() {
 	register_sidebar(
 		array(
-			'name'          => __( 'Footer', '_smfr' ),
+			'name'          => __( 'Pied de page', '_smfr' ),
 			'id'            => 'sidebar-1',
-			'description'   => __( 'Add widgets here to appear in your footer.', '_smfr' ),
+			'description'   => __( 'Ajoutez des widgets à afficher dans le pied de page.', '_smfr' ),
 			'before_widget' => '<section id="%1$s" class="widget %2$s">',
 			'after_widget'  => '</section>',
 			'before_title'  => '<h2 class="widget-title">',
@@ -155,13 +155,7 @@ add_action( 'widgets_init', '_smfr_widgets_init' );
  * Enqueue scripts and styles.
  */
 function _smfr_scripts() {
-	wp_enqueue_style(
-		'_smfr-fonts',
-		'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Rajdhani:wght@500;600;700&display=swap',
-		array(),
-		null
-	);
-	wp_enqueue_style( '_smfr-style', get_stylesheet_uri(), array( '_smfr-fonts' ), _SMFR_VERSION );
+	wp_enqueue_style( '_smfr-style', get_stylesheet_uri(), array(), _SMFR_VERSION );
 	wp_enqueue_script( '_smfr-script', get_template_directory_uri() . '/js/script.min.js', array(), _SMFR_VERSION, true );
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
@@ -191,7 +185,11 @@ function _smfr_enqueue_block_editor_script() {
 			_SMFR_VERSION,
 			true
 		);
-		wp_add_inline_script( '_smfr-editor', "tailwindTypographyClasses = '" . esc_attr( _SMFR_TYPOGRAPHY_CLASSES ) . "'.split(' ');", 'before' );
+		wp_add_inline_script(
+			'_smfr-editor',
+			'window.tailwindTypographyClasses = ' . wp_json_encode( preg_split( '/\s+/', _SMFR_TYPOGRAPHY_CLASSES ) ) . ';',
+			'before'
+		);
 	}
 }
 add_action( 'enqueue_block_assets', '_smfr_enqueue_block_editor_script' );
@@ -247,207 +245,8 @@ function _smfr_primary_menu_fallback() {
 		$_smfr_links = '<li><a href="' . esc_url( home_url( '/' ) ) . '">' . esc_html__( 'Accueil', '_smfr' ) . '</a></li>';
 	}
 
-	echo '<ul id="primary-menu" class="menu">' . $_smfr_links . '</ul>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+	echo '<ul id="primary-menu" class="menu">' . wp_kses_post( $_smfr_links ) . '</ul>';
 }
-
-/**
- * Social networks handled by the theme.
- *
- * @return array<string, array{label: string, default: string}>
- */
-function _smfr_social_networks() {
-	return array(
-		'discord' => array(
-			'label'   => __( 'Discord', '_smfr' ),
-			'default' => 'https://discord.gg/smitefrance',
-		),
-		'youtube' => array(
-			'label'   => __( 'YouTube', '_smfr' ),
-			'default' => 'https://www.youtube.com/@SmiteFrance',
-		),
-		'x'       => array(
-			'label'   => __( 'X (Twitter)', '_smfr' ),
-			'default' => 'https://x.com/SmiteFrance',
-		),
-	);
-}
-
-/**
- * Get a configured social link URL.
- *
- * @param string $network Network key (discord, youtube, x).
- * @return string
- */
-function _smfr_social_url( $network ) {
-	$networks = _smfr_social_networks();
-	$default  = isset( $networks[ $network ] ) ? $networks[ $network ]['default'] : '';
-
-	return get_theme_mod( 'smfr_social_' . $network, $default );
-}
-
-/**
- * Default text for the information banner.
- *
- * @return string
- */
-function _smfr_notice_default_text() {
-	return __(
-		"Nous informons nos lecteurs que n'ayant pas assez de bénévoles, notre site n'est pas à jour sur l'arrivée de SMITE 2 !\n\nCertaines informations concernant SMITE ne sont également pas à jour.\n\nNous continuons malgré tout à vous proposer un Discord actif et la rédaction des Notes des Patchs de SMITE 2 lors de leurs sorties via l'onglet \"Notes de Patch\".\n\nVous pouvez rejoindre l'équipe de bénévoles via l'onglet \"Staff Smite France\" ou \"Contact\".\n\nMerci à vous et bonne visite !\nL'équipe SMITE FRANCE",
-		'_smfr'
-	);
-}
-
-/**
- * Register theme options in the WordPress Customizer.
- */
-function _smfr_customize_register( $wp_customize ) {
-	$wp_customize->add_section(
-		'_smfr_homepage',
-		array(
-			'title'    => __( 'Page d’accueil', '_smfr' ),
-			'priority' => 30,
-		)
-	);
-
-	$wp_customize->add_setting(
-		'smfr_hero_image',
-		array(
-			'default'           => '',
-			'sanitize_callback' => 'esc_url_raw',
-			'transport'         => 'refresh',
-		)
-	);
-
-	$wp_customize->add_control(
-		new WP_Customize_Image_Control(
-			$wp_customize,
-			'smfr_hero_image',
-			array(
-				'label'       => __( 'Image de fond du hero', '_smfr' ),
-				'description' => __( 'Affichée floutée derrière le titre. Si vide, les couleurs par défaut sont conservées.', '_smfr' ),
-				'section'     => '_smfr_homepage',
-			)
-		)
-	);
-
-	// Fallback image for posts without a featured image.
-	$wp_customize->add_setting(
-		'smfr_default_thumbnail',
-		array(
-			'default'           => '',
-			'sanitize_callback' => 'esc_url_raw',
-			'transport'         => 'refresh',
-		)
-	);
-
-	$wp_customize->add_control(
-		new WP_Customize_Image_Control(
-			$wp_customize,
-			'smfr_default_thumbnail',
-			array(
-				'label'       => __( 'Image par défaut des articles', '_smfr' ),
-				'description' => __( 'Utilisée sur la page d’accueil quand un article n’a pas d’image mise en avant. Si vide, le titre « SMITE FRANCE » est affiché.', '_smfr' ),
-				'section'     => '_smfr_homepage',
-			)
-		)
-	);
-
-	// Information banner.
-	$wp_customize->add_section(
-		'_smfr_notice',
-		array(
-			'title'    => __( 'Bandeau d’information', '_smfr' ),
-			'priority' => 31,
-		)
-	);
-
-	$wp_customize->add_setting(
-		'smfr_notice_enable',
-		array(
-			'default'           => false,
-			'sanitize_callback' => 'wp_validate_boolean',
-			'transport'         => 'refresh',
-		)
-	);
-
-	$wp_customize->add_control(
-		'smfr_notice_enable',
-		array(
-			'label'   => __( 'Afficher le bandeau', '_smfr' ),
-			'section' => '_smfr_notice',
-			'type'    => 'checkbox',
-		)
-	);
-
-	$wp_customize->add_setting(
-		'smfr_notice_title',
-		array(
-			'default'           => __( 'INFORMATION IMPORTANTE', '_smfr' ),
-			'sanitize_callback' => 'sanitize_text_field',
-			'transport'         => 'refresh',
-		)
-	);
-
-	$wp_customize->add_control(
-		'smfr_notice_title',
-		array(
-			'label'   => __( 'Titre du bandeau', '_smfr' ),
-			'section' => '_smfr_notice',
-			'type'    => 'text',
-		)
-	);
-
-	$wp_customize->add_setting(
-		'smfr_notice_text',
-		array(
-			'default'           => _smfr_notice_default_text(),
-			'sanitize_callback' => 'wp_kses_post',
-			'transport'         => 'refresh',
-		)
-	);
-
-	$wp_customize->add_control(
-		'smfr_notice_text',
-		array(
-			'label'       => __( 'Texte du bandeau', '_smfr' ),
-			'description' => __( 'Les sauts de ligne sont conservés.', '_smfr' ),
-			'section'     => '_smfr_notice',
-			'type'        => 'textarea',
-		)
-	);
-
-	// Social links.
-	$wp_customize->add_section(
-		'_smfr_social',
-		array(
-			'title'    => __( 'Réseaux sociaux', '_smfr' ),
-			'priority' => 32,
-		)
-	);
-
-	foreach ( _smfr_social_networks() as $_smfr_key => $_smfr_network ) {
-		$wp_customize->add_setting(
-			'smfr_social_' . $_smfr_key,
-			array(
-				'default'           => $_smfr_network['default'],
-				'sanitize_callback' => 'esc_url_raw',
-				'transport'         => 'refresh',
-			)
-		);
-
-		$wp_customize->add_control(
-			'smfr_social_' . $_smfr_key,
-			array(
-				/* translators: %s: social network name. */
-				'label'       => sprintf( __( 'Lien %s', '_smfr' ), $_smfr_network['label'] ),
-				'description' => __( 'Laisser vide pour masquer.', '_smfr' ),
-				'section'     => '_smfr_social',
-				'type'        => 'url',
-			)
-		);
-	}
-}
-add_action( 'customize_register', '_smfr_customize_register' );
 
 /**
  * Custom template tags for this theme.
@@ -458,3 +257,8 @@ require get_template_directory() . '/inc/template-tags.php';
  * Functions which enhance the theme by hooking into WordPress.
  */
 require get_template_directory() . '/inc/template-functions.php';
+
+/**
+ * Customizer settings and helpers (homepage hero, notice banner, social links).
+ */
+require get_template_directory() . '/inc/customizer.php';

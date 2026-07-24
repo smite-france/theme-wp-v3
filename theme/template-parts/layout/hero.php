@@ -13,12 +13,16 @@ $_smfr_hero_image = get_theme_mod( 'smfr_hero_image', '' );
 	<?php if ( $_smfr_hero_image ) : ?>
 		<!-- Custom background image (blurred + dark overlay) -->
 		<div class="pointer-events-none absolute inset-0 -z-10">
-			<img
-				src="<?php echo esc_url( $_smfr_hero_image ); ?>"
-				alt=""
-				aria-hidden="true"
-				class="h-full w-full scale-105 object-cover blur-md"
-			/>
+			<?php
+			_smfr_customizer_image(
+				$_smfr_hero_image,
+				array(
+					'alt'         => '',
+					'aria-hidden' => 'true',
+					'class'       => 'h-full w-full scale-105 object-cover blur-md',
+				)
+			);
+			?>
 			<div class="absolute inset-0 bg-background/70"></div>
 		</div>
 	<?php else : ?>
@@ -37,7 +41,7 @@ $_smfr_hero_image = get_theme_mod( 'smfr_hero_image', '' );
 			<span class="h-px w-8 bg-cyan"></span>
 		</p>
 
-		<h1 class="mx-auto mt-6 max-w-3xl font-display text-5xl font-bold uppercase leading-[0.95] tracking-tight sm:text-6xl lg:text-7xl">
+		<h1 class="mx-auto mt-6 max-w-3xl font-display text-5xl leading-[0.95] font-bold tracking-tight uppercase sm:text-6xl lg:text-7xl">
 			<?php esc_html_e( 'Rejoins la communauté', '_smfr' ); ?>
 			<span class="block bg-gradient-to-r from-gold via-amber-200 to-gold bg-clip-text text-transparent">
 				<?php esc_html_e( 'SMITE France', '_smfr' ); ?>

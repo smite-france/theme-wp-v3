@@ -4,12 +4,12 @@ services:
     image: mysql:8.0
     restart: unless-stopped
     environment:
-      # Match the credentials hard-coded in website/wp-config.php so it can stay
-      # byte-identical to production.
-      MYSQL_DATABASE: smitefrawcweb
-      MYSQL_USER: smitefrawcweb
-      MYSQL_PASSWORD: JRbSM58iqB38nidGERp85Gq8
-      MYSQL_ROOT_PASSWORD: rootpassword
+      # Match the credentials in website/wp-config.php so it can stay
+      # byte-identical to production. Values live in the (untracked) .env file.
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
     volumes:
       - db_data:/var/lib/mysql
     networks:
@@ -17,7 +17,7 @@ services:
         aliases:
           # wp-config.php points DB_HOST at this hostname; make it resolve to
           # this container so the production config works unchanged.
-          - smitefrawcweb.mysql.db
+          - ${MYSQL_HOST_ALIAS}
 
   wordpress:
     # PHP 7.4 to match production (PHP 8 makes legacy plugins fatal).
@@ -29,7 +29,7 @@ services:
       - "8080:80"
     volumes:
       # The real production site: same core, plugins, uploads, wp-config.
-      - /home/tilican/Workspace/website:/var/www/html:z
+      - ${WORDPRESS_PATH}:/var/www/html:z
       # Keep live theme development from this repo (folder name must stay
       # "smfr" to match the active theme in the database).
       - ./theme:/var/www/html/wp-content/themes/smfr:z
@@ -46,8 +46,8 @@ services:
       - "8081:80"
     environment:
       PMA_HOST: db
-      PMA_USER: smitefrawcweb
-      PMA_PASSWORD: JRbSM58iqB38nidGERp85Gq8
+      PMA_USER: ${MYSQL_USER}
+      PMA_PASSWORD: ${MYSQL_PASSWORD}
 
 volumes:
   db_data:

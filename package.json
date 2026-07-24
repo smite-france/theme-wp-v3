@@ -2,6 +2,9 @@
 	"$schema": "https://json.schemastore.org/package.json",
 	"private": true,
 	"type": "module",
+	"engines": {
+		"node": ">=20"
+	},
 	"scripts": {
 		"development:tailwind:frontend": "npx postcss ./tailwind.css -o ./theme/style.css --verbose",
 		"development:tailwind:editor": "cross-env _TW_TARGET=editor npx postcss ./tailwind.css -o ./theme/style-editor.css",

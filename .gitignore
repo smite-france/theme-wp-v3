@@ -14,5 +14,8 @@ tailwind-intellisense.css
 # Ignore the generated zip file:
 _smfr.zip
 
+# Ignore local environment files (secrets):
+/.env
+
 # Ignore .DS_Store files from macOS:
 .DS_Store

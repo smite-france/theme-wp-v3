@@ -1,0 +1,33 @@
+/**
+ * Buttons — divine-gold primary CTA and ghosted secondary, inspired by the
+ * "Play Free Now" buttons on smite2.com.
+ */
+.btn,
+.btn-primary,
+.btn-ghost {
+	@apply font-display inline-flex items-center justify-center gap-2 rounded-md px-5 py-2.5 text-sm font-semibold tracking-wider uppercase transition-all duration-150;
+}
+
+.btn-primary {
+	@apply text-background;
+	background-image: linear-gradient(
+		135deg,
+		var(--color-gold),
+		color-mix(in oklab, var(--color-gold) 70%, #fff)
+	);
+	box-shadow: 0 0 0 1px
+		color-mix(in oklab, var(--color-gold) 50%, transparent);
+}
+
+.btn-primary:hover {
+	@apply text-background -translate-y-0.5;
+	box-shadow: 0 8px 24px -8px var(--color-gold);
+}
+
+.btn-ghost {
+	@apply border-border bg-surface/60 text-foreground border;
+}
+
+.btn-ghost:hover {
+	@apply border-cyan text-cyan;
+}

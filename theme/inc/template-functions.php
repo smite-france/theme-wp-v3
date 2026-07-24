@@ -37,33 +37,33 @@ add_filter( 'comment_form_defaults', '_smfr_comment_form_defaults' );
  */
 function _smfr_get_the_archive_title() {
 	if ( is_category() ) {
-		$title = __( 'Category Archives: ', '_smfr' ) . '<span>' . single_term_title( '', false ) . '</span>';
+		$title = __( 'Archives de la catégorie : ', '_smfr' ) . '<span>' . single_term_title( '', false ) . '</span>';
 	} elseif ( is_tag() ) {
-		$title = __( 'Tag Archives: ', '_smfr' ) . '<span>' . single_term_title( '', false ) . '</span>';
+		$title = __( 'Archives de l’étiquette : ', '_smfr' ) . '<span>' . single_term_title( '', false ) . '</span>';
 	} elseif ( is_author() ) {
-		$title = __( 'Author Archives: ', '_smfr' ) . '<span>' . get_the_author_meta( 'display_name' ) . '</span>';
+		$title = __( 'Archives de l’auteur : ', '_smfr' ) . '<span>' . get_the_author_meta( 'display_name' ) . '</span>';
 	} elseif ( is_year() ) {
-		$title = __( 'Yearly Archives: ', '_smfr' ) . '<span>' . get_the_date( _x( 'Y', 'yearly archives date format', '_smfr' ) ) . '</span>';
+		$title = __( 'Archives annuelles : ', '_smfr' ) . '<span>' . get_the_date( _x( 'Y', 'yearly archives date format', '_smfr' ) ) . '</span>';
 	} elseif ( is_month() ) {
-		$title = __( 'Monthly Archives: ', '_smfr' ) . '<span>' . get_the_date( _x( 'F Y', 'monthly archives date format', '_smfr' ) ) . '</span>';
+		$title = __( 'Archives mensuelles : ', '_smfr' ) . '<span>' . get_the_date( _x( 'F Y', 'monthly archives date format', '_smfr' ) ) . '</span>';
 	} elseif ( is_day() ) {
-		$title = __( 'Daily Archives: ', '_smfr' ) . '<span>' . get_the_date() . '</span>';
+		$title = __( 'Archives quotidiennes : ', '_smfr' ) . '<span>' . get_the_date() . '</span>';
 	} elseif ( is_post_type_archive() ) {
 		$cpt   = get_post_type_object( get_queried_object()->name );
 		$title = sprintf(
 			/* translators: %s: Post type singular name */
-			esc_html__( '%s Archives', '_smfr' ),
+			esc_html__( 'Archives : %s', '_smfr' ),
 			$cpt->labels->singular_name
 		);
 	} elseif ( is_tax() ) {
 		$tax   = get_taxonomy( get_queried_object()->taxonomy );
 		$title = sprintf(
 			/* translators: %s: Taxonomy singular name */
-			esc_html__( '%s Archives', '_smfr' ),
+			esc_html__( 'Archives : %s', '_smfr' ),
 			$tax->labels->singular_name
 		);
 	} else {
-		$title = __( 'Archives:', '_smfr' );
+		$title = __( 'Archives', '_smfr' );
 	}
 	return $title;
 }
@@ -74,13 +74,6 @@ add_filter( 'get_the_archive_title', '_smfr_get_the_archive_title' );
  */
 function _smfr_can_show_post_thumbnail() {
 	return apply_filters( '_smfr_can_show_post_thumbnail', ! post_password_required() && ! is_attachment() && has_post_thumbnail() );
-}
-
-/**
- * Returns the size for avatars used in the theme.
- */
-function _smfr_get_avatar_size() {
-	return 60;
 }
 
 /**
@@ -127,9 +120,9 @@ function _smfr_html5_comment( $comment, $args, $depth ) {
 	$show_pending_links = ! empty( $commenter['comment_author'] );
 
 	if ( $commenter['comment_author_email'] ) {
-		$moderation_note = __( 'Your comment is awaiting moderation.', '_smfr' );
+		$moderation_note = __( 'Votre commentaire est en attente de modération.', '_smfr' );
 	} else {
-		$moderation_note = __( 'Your comment is awaiting moderation. This is a preview; your comment will be visible after it has been approved.', '_smfr' );
+		$moderation_note = __( 'Votre commentaire est en attente de modération. Ceci est un aperçu ; votre commentaire sera visible après approbation.', '_smfr' );
 	}
 	?>
 	<<?php echo esc_attr( $tag ); ?> id="comment-<?php comment_ID(); ?>" <?php comment_class( $comment->has_children ? 'parent' : '', $comment ); ?>>
@@ -149,8 +142,8 @@ function _smfr_html5_comment( $comment, $args, $depth ) {
 					}
 
 					printf(
-						/* translators: %s: Comment author link. */
-						wp_kses_post( __( '%s <span class="says">says:</span>', '_smfr' ) ),
+					/* translators: %s: Comment author link. */
+						wp_kses_post( __( '%s <span class="says">dit :</span>', '_smfr' ) ),
 						sprintf( '<b class="fn">%s</b>', wp_kses_post( $comment_author ) )
 					);
 					?>
@@ -165,14 +158,14 @@ function _smfr_html5_comment( $comment, $args, $depth ) {
 						esc_html(
 							sprintf(
 							/* translators: 1: Comment date, 2: Comment time. */
-								__( '%1$s at %2$s', '_smfr' ),
+								__( 'le %1$s à %2$s', '_smfr' ),
 								get_comment_date( '', $comment ),
 								get_comment_time()
 							)
 						)
 					);
 
-					edit_comment_link( __( 'Edit', '_smfr' ), ' <span class="edit-link">', '</span>' );
+					edit_comment_link( __( 'Modifier', '_smfr' ), ' <span class="edit-link">', '</span>' );
 					?>
 				</div><!-- .comment-metadata -->
 

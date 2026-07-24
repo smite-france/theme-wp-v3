@@ -25,15 +25,18 @@
 		<?php else : ?>
 			<?php $_smfr_default_thumb = get_theme_mod( 'smfr_default_thumbnail', '' ); ?>
 			<?php if ( $_smfr_default_thumb ) : ?>
-				<img
-					src="<?php echo esc_url( $_smfr_default_thumb ); ?>"
-					alt=""
-					aria-hidden="true"
-					loading="lazy"
-					class="h-full w-full object-cover transition-transform duration-300 hover:scale-105"
-				/>
+				<?php
+				_smfr_customizer_image(
+					$_smfr_default_thumb,
+					array(
+						'alt'         => '',
+						'aria-hidden' => 'true',
+						'class'       => 'h-full w-full object-cover transition-transform duration-300 hover:scale-105',
+					)
+				);
+				?>
 			<?php else : ?>
-				<span class="flex h-full w-full items-center justify-center font-display text-2xl font-bold uppercase tracking-widest text-border">
+				<span class="flex h-full w-full items-center justify-center font-display text-2xl font-bold tracking-widest text-border uppercase">
 					SMITE FRANCE
 				</span>
 			<?php endif; ?>
@@ -61,11 +64,11 @@
 			</a>
 		</h2>
 
-		<p class="m-0 mb-4 text-sm text-muted line-clamp-3">
+		<p class="m-0 mb-4 line-clamp-3 text-sm text-muted">
 			<?php echo esc_html( wp_trim_words( get_the_excerpt(), 22 ) ); ?>
 		</p>
 
-		<div class="mt-auto flex items-center gap-2 border-t border-border pt-3 font-display text-xs uppercase tracking-wide text-muted">
+		<div class="mt-auto flex items-center gap-2 border-t border-border pt-3 font-display text-xs tracking-wide text-muted uppercase">
 			<time datetime="<?php echo esc_attr( get_the_date( 'c' ) ); ?>"><?php echo esc_html( get_the_date() ); ?></time>
 			<span aria-hidden="true">•</span>
 			<span class="text-gold"><?php the_author(); ?></span>

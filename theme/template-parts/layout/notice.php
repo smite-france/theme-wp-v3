@@ -25,7 +25,7 @@ if ( '' === trim( (string) $_smfr_notice_title ) && '' === trim( (string) $_smfr
 <aside class="border-b border-gold/30 bg-gold/10" role="note">
 	<div class="mx-auto max-w-wide px-4 py-5 text-center sm:px-6">
 		<?php if ( $_smfr_notice_title ) : ?>
-			<p class="m-0 font-display text-sm font-bold uppercase tracking-widest text-gold">
+			<p class="m-0 font-display text-sm font-bold tracking-widest text-gold uppercase">
 				<?php echo esc_html( $_smfr_notice_title ); ?>
 			</p>
 		<?php endif; ?>

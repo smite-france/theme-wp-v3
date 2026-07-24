@@ -1,0 +1,14 @@
+/**
+ * Search form (HTML5 core markup).
+ */
+.search-form {
+	@apply mx-auto mt-6 flex max-w-md items-center gap-2;
+}
+
+.search-form .search-field {
+	@apply border-border bg-surface text-foreground placeholder:text-muted focus:border-cyan h-11 flex-1 rounded-md border px-4 focus:outline-none;
+}
+
+.search-form .search-submit {
+	@apply bg-gold font-display text-background inline-flex h-11 items-center rounded-md px-5 text-sm font-semibold tracking-wider uppercase transition-all duration-150 hover:-translate-y-0.5;
+}

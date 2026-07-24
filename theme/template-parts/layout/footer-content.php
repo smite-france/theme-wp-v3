@@ -19,7 +19,7 @@
 				<a
 					href="<?php echo esc_url( home_url( '/' ) ); ?>"
 					rel="home"
-					class="font-display text-lg font-bold tracking-widest uppercase text-foreground hover:text-gold"
+					class="font-display text-lg font-bold tracking-widest text-foreground uppercase hover:text-gold"
 				>
 					<?php bloginfo( 'name' ); ?>
 				</a>
@@ -29,7 +29,7 @@
 			</div>
 
 			<?php if ( has_nav_menu( 'menu-2' ) ) : ?>
-				<nav aria-label="<?php esc_attr_e( 'Footer Menu', '_smfr' ); ?>">
+				<nav aria-label="<?php esc_attr_e( 'Menu de pied de page', '_smfr' ); ?>">
 					<?php
 					wp_nav_menu(
 						array(
@@ -71,7 +71,7 @@
 		</div>
 
 		<?php if ( is_active_sidebar( 'sidebar-1' ) ) : ?>
-			<aside role="complementary" class="mt-10 border-t border-border pt-8" aria-label="<?php esc_attr_e( 'Footer', '_smfr' ); ?>">
+			<aside role="complementary" class="mt-10 border-t border-border pt-8" aria-label="<?php esc_attr_e( 'Pied de page', '_smfr' ); ?>">
 				<?php dynamic_sidebar( 'sidebar-1' ); ?>
 			</aside>
 		<?php endif; ?>

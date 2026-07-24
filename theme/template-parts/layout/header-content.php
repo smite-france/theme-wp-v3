@@ -31,13 +31,14 @@
 			<?php endif; ?>
 
 			<?php
-			$_smfr_name_tag = is_front_page() ? 'h1' : 'p';
+			// The front page already has an <h1> in the hero, so the site name
+			// is always a paragraph to avoid duplicate top-level headings.
 			?>
-			<<?php echo esc_attr( $_smfr_name_tag ); ?> class="m-0 leading-none">
+			<p class="m-0 leading-none">
 				<a
 					href="<?php echo esc_url( home_url( '/' ) ); ?>"
 					rel="home"
-					class="font-display text-xl font-bold tracking-widest uppercase text-foreground hover:text-gold"
+					class="font-display text-xl font-bold tracking-widest text-foreground uppercase hover:text-gold"
 				>
 					<?php
 					$_smfr_blogname = get_bloginfo( 'name' );
@@ -53,13 +54,13 @@
 					}
 					?>
 				</a>
-			</<?php echo esc_attr( $_smfr_name_tag ); ?>>
+			</p>
 		</div>
 
 		<nav
 			id="site-navigation"
 			class="flex items-center gap-3"
-			aria-label="<?php esc_attr_e( 'Main Navigation', '_smfr' ); ?>"
+			aria-label="<?php esc_attr_e( 'Navigation principale', '_smfr' ); ?>"
 		>
 			<button
 				class="btn-ghost px-3 py-2 lg:hidden"
@@ -91,7 +92,7 @@
 					'menu_id'        => 'primary-menu',
 					'container'      => false,
 					'fallback_cb'    => '_smfr_primary_menu_fallback',
-					'items_wrap'     => '<ul id="%1$s" class="%2$s" aria-label="submenu">%3$s</ul>',
+					'items_wrap'     => '<ul id="%1$s" class="%2$s">%3$s</ul>',
 				)
 			);
 			?>

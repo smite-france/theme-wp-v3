@@ -14,7 +14,7 @@
 	<header class="entry-header">
 		<?php
 		if ( is_sticky() && is_home() && ! is_paged() ) {
-			printf( '<span">%s</span>', esc_html_x( 'Featured', 'post', '_smfr' ) );
+			printf( '<span class="badge">%s</span>', esc_html_x( 'À la une', 'post', '_smfr' ) );
 		}
 		if ( is_singular() ) :
 			the_title( '<h1 class="entry-title">', '</h1>' );

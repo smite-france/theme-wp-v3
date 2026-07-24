@@ -1,0 +1,25 @@
+/**
+ * Comments area.
+ */
+#comments {
+	@apply border-border border-t pt-8;
+}
+
+.comment-list {
+	@apply list-none space-y-6 pl-0;
+}
+
+.comment-body {
+	@apply border-border bg-surface rounded-xl border p-5;
+}
+
+.comment-form input[type="text"],
+.comment-form input[type="email"],
+.comment-form input[type="url"],
+.comment-form textarea {
+	@apply border-border bg-surface text-foreground placeholder:text-muted focus:border-cyan w-full rounded-md border px-4 py-2 focus:outline-none;
+}
+
+.comment-form .submit {
+	@apply bg-gold font-display text-background inline-flex cursor-pointer items-center justify-center rounded-md px-5 py-2.5 text-sm font-semibold tracking-wider uppercase transition-all duration-150 hover:-translate-y-0.5;
+}
