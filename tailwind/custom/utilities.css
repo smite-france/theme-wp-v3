@@ -8,16 +8,32 @@
  */
 
 /**
- * Imported posts include their own bullet characters ("•") inside list items,
- * which collided with the bullets added by Tailwind Typography (`prose`),
- * producing double bullets. We disable the prose-generated markers on
- * unordered lists in post/page content so only the content's own bullet (if
- * any) is shown. Ordered lists keep their numbers.
+ * Content lists always get a round orange bullet, on the front end and in
+ * both editors (`prose` is on the TinyMCE body too), so authors never have to
+ * type a "•" themselves.
  */
+.prose,
+.entry-content,
+.page-content {
+	--tw-prose-bullets: var(--wp--preset--color--secondary, #f5821f);
+}
+
+.prose ul,
 .entry-content ul,
 .page-content ul {
-	list-style: none;
-	padding-inline-start: 0;
+	list-style: disc;
+}
+
+.prose ul ul ul,
+.entry-content ul ul ul,
+.page-content ul ul ul {
+	list-style-type: "\25BA\00A0";
+}
+
+.prose ul > li::marker,
+.entry-content ul > li::marker,
+.page-content ul > li::marker {
+	color: var(--tw-prose-bullets);
 }
 
 /**
