@@ -1,0 +1,33 @@
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - run: npm ci
+
+      - run: npm run production
+
+      - name: Deploy via rsync over SSH
+        run: |
+          sudo apt-get install -y -q sshpass
+          sshpass -e rsync -az \
+            -e "ssh -o StrictHostKeyChecking=no -p 22" \
+            theme/ "$FTP_USERNAME@$FTP_SERVER:$FTP_SERVER_DIR"
+        env:
+          SSHPASS: ${{ secrets.FTP_PASSWORD }}
+          FTP_SERVER: ${{ secrets.FTP_SERVER }}
+          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+          FTP_SERVER_DIR: ${{ vars.FTP_SERVER_DIR }}
