@@ -17,7 +17,7 @@ function _smfr_social_networks() {
 	return array(
 		'discord' => array(
 			'label'   => __( 'Discord', '_smfr' ),
-			'default' => 'https://discord.gg/smitefrance',
+			'default' => 'https://discord.gg/m8VGypg',
 		),
 		'youtube' => array(
 			'label'   => __( 'YouTube', '_smfr' ),
