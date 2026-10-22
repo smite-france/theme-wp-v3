@@ -1,4 +1,8 @@
-/* Widgets in the footer. */
+/* Widgets (footer and homepage column). */
+.widget + .widget {
+	@apply mt-8;
+}
+
 .widget-title {
 	@apply font-display text-foreground mb-3 text-sm font-semibold tracking-widest uppercase;
 }

@@ -20,7 +20,9 @@ get_header();
 	<?php get_template_part( 'template-parts/layout/notice' ); ?>
 <?php endif; ?>
 
-	<section id="primary">
+	<?php $_smfr_home_sidebar = is_front_page() && is_active_sidebar( 'sidebar-home' ); ?>
+
+	<section id="primary" class="<?php echo $_smfr_home_sidebar ? 'lg:grid lg:grid-cols-[minmax(0,1fr)_300px] lg:gap-10' : ''; ?>">
 		<main id="main">
 
 		<?php
@@ -64,6 +66,12 @@ get_header();
 		?>
 
 		</main><!-- #main -->
+
+		<?php if ( $_smfr_home_sidebar ) : ?>
+			<aside role="complementary" class="mt-12 lg:mt-0" aria-label="<?php esc_attr_e( 'Colonne accueil', '_smfr' ); ?>">
+				<?php dynamic_sidebar( 'sidebar-home' ); ?>
+			</aside>
+		<?php endif; ?>
 	</section><!-- #primary -->
 
 <?php

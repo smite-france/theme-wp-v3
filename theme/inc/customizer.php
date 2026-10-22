@@ -249,5 +249,52 @@ function _smfr_customize_register( $wp_customize ) {
 			)
 		);
 	}
+
+	// Advertising (Google AdSense).
+	$wp_customize->add_section(
+		'_smfr_ads',
+		array(
+			'title'    => __( 'Publicité', '_smfr' ),
+			'priority' => 33,
+		)
+	);
+
+	$wp_customize->add_setting(
+		'smfr_adsense_client',
+		array(
+			'default'           => 'ca-pub-5504634333839905',
+			'sanitize_callback' => 'sanitize_text_field',
+			'transport'         => 'refresh',
+		)
+	);
+
+	$wp_customize->add_control(
+		'smfr_adsense_client',
+		array(
+			'label'       => __( 'Identifiant client AdSense', '_smfr' ),
+			'description' => __( 'Format ca-pub-XXXXXXXXXXXXXXXX. Laisser vide pour désactiver toutes les publicités.', '_smfr' ),
+			'section'     => '_smfr_ads',
+			'type'        => 'text',
+		)
+	);
+
+	$wp_customize->add_setting(
+		'smfr_adsense_slot_header',
+		array(
+			'default'           => '1203329357',
+			'sanitize_callback' => 'sanitize_text_field',
+			'transport'         => 'refresh',
+		)
+	);
+
+	$wp_customize->add_control(
+		'smfr_adsense_slot_header',
+		array(
+			'label'       => __( 'Bloc sous le menu (data-ad-slot)', '_smfr' ),
+			'description' => __( 'Laisser vide pour ne pas afficher ce bloc. Les autres blocs se placent en widgets HTML personnalisé.', '_smfr' ),
+			'section'     => '_smfr_ads',
+			'type'        => 'text',
+		)
+	);
 }
 add_action( 'customize_register', '_smfr_customize_register' );

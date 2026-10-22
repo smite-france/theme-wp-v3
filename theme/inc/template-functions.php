@@ -16,6 +16,38 @@ function _smfr_pingback_header() {
 add_action( 'wp_head', '_smfr_pingback_header' );
 
 /**
+ * Load the AdSense library when a client id is configured in the Customizer.
+ */
+function _smfr_adsense_head() {
+	$client = get_theme_mod( 'smfr_adsense_client', 'ca-pub-5504634333839905' );
+
+	if ( ! $client ) {
+		return;
+	}
+	?>
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=<?php echo esc_attr( $client ); ?>" crossorigin="anonymous"></script>
+	<?php
+}
+add_action( 'wp_head', '_smfr_adsense_head' );
+
+/**
+ * Print a responsive AdSense unit.
+ *
+ * @param string $slot Ad slot id (data-ad-slot).
+ */
+function _smfr_adsense_unit( $slot ) {
+	$client = get_theme_mod( 'smfr_adsense_client', 'ca-pub-5504634333839905' );
+
+	if ( ! $client || ! $slot ) {
+		return;
+	}
+	?>
+	<ins class="adsbygoogle block" data-ad-client="<?php echo esc_attr( $client ); ?>" data-ad-slot="<?php echo esc_attr( $slot ); ?>" data-ad-format="auto" data-full-width-responsive="true"></ins>
+	<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+	<?php
+}
+
+/**
  * Changes comment form default fields.
  *
  * @param array $defaults The default comment form arguments.

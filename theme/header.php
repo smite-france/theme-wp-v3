@@ -28,4 +28,10 @@
 
 	<?php get_template_part( 'template-parts/layout/header', 'content' ); ?>
 
+	<?php if ( get_theme_mod( 'smfr_adsense_slot_header', '1203329357' ) ) : ?>
+		<div class="mx-auto max-w-wide px-4 pt-6 sm:px-6">
+			<?php _smfr_adsense_unit( get_theme_mod( 'smfr_adsense_slot_header', '1203329357' ) ); ?>
+		</div>
+	<?php endif; ?>
+
 	<div id="content">

@@ -148,6 +148,18 @@ function _smfr_widgets_init() {
 			'after_title'   => '</h2>',
 		)
 	);
+
+	register_sidebar(
+		array(
+			'name'          => __( 'Colonne accueil', '_smfr' ),
+			'id'            => 'sidebar-home',
+			'description'   => __( 'Colonne à droite des articles sur la page d’accueil (donateurs, publicités…).', '_smfr' ),
+			'before_widget' => '<section id="%1$s" class="widget %2$s">',
+			'after_widget'  => '</section>',
+			'before_title'  => '<h2 class="widget-title">',
+			'after_title'   => '</h2>',
+		)
+	);
 }
 add_action( 'widgets_init', '_smfr_widgets_init' );
 
