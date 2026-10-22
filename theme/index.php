@@ -17,13 +17,14 @@ get_header();
 
 <?php if ( is_front_page() ) : ?>
 	<?php get_template_part( 'template-parts/layout/hero' ); ?>
-	<?php get_template_part( 'template-parts/layout/notice' ); ?>
 <?php endif; ?>
 
 	<?php $_smfr_home_sidebar = is_front_page() && is_active_sidebar( 'sidebar-home' ); ?>
 
 	<section id="primary" class="<?php echo $_smfr_home_sidebar ? 'lg:grid lg:grid-cols-[minmax(0,1fr)_300px] lg:gap-10' : ''; ?>">
 		<main id="main">
+
+		<?php get_template_part( 'template-parts/layout/notice' ); ?>
 
 		<?php
 		if ( have_posts() ) {
@@ -43,7 +44,7 @@ get_header();
 			endif;
 			?>
 
-			<div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+			<div class="grid grid-cols-1 gap-6 sm:grid-cols-2<?php echo $_smfr_home_sidebar ? '' : ' lg:grid-cols-3'; ?>">
 				<?php
 				// Load posts loop.
 				while ( have_posts() ) {
